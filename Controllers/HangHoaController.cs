@@ -86,5 +86,27 @@ namespace ProductAPIVS.Controllers
                 return BadRequest();
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(string id)
+        {
+            try
+            {
+                // LINQ [Object] Query
+                var hangHoa = hangHoas.SingleOrDefault(hh => hh.MaHangHoa == Guid.Parse(id));
+                if (hangHoa == null)
+                {
+                    return NotFound();
+                }
+
+                hangHoas.Remove(hangHoa);
+            
+                return Ok();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
     }
 }
